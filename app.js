@@ -11,15 +11,20 @@ mongoose.connection.on('connected', () => {
 });
 
 // Schema & Model
-const costumerSchema = new mongoose.Schema({
+const customerSchema = new mongoose.Schema({
     name: String,
     age: Number
 });
 
-mongoose.model('Customer', costumerSchema);
+const Customer = mongoose.model('Customer', customerSchema);
 module.exports = Customer;
 
-// Prompts
+// Functions
+const Init = () => {
+    promptFunction();
+};
+
+const promptFunction = () => {
 console.log('Welcome to the CRM Tool')
 console.log('What would you like to do?')
 console.log('1. Create a new Customer')
@@ -28,6 +33,8 @@ console.log('3. Update a preexisting Customer')
 console.log('4. Delete a Customer')
 console.log('5. Exit Tool')
 const option = prompt('Action to perform? ');
+};
 
+Init();
 
 
