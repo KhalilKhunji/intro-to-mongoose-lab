@@ -35,18 +35,17 @@ const promptFunction = () => {
     const option = prompt('Action to perform? ');
     if (option === '1') {
         createCustomer();
-    };
-    if (option === '2') {
+    } else if (option === '2') {
         viewCustomers();
-    };
-    if (option === '3') {
+    } else if (option === '3') {
         updateCustomer();
-    };
-    if (option === '4') {
+    } else if (option === '4') {
         deleteCustomer();
-    };
-    if (option === '5') {
+    } else if (option === '5') {
         quitFunction();
+    } else {
+        console.log('Invalid input, returning to Menu...')
+        promptFunction(); 
     };
 };
 
