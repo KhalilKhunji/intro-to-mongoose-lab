@@ -54,9 +54,17 @@ const nextPrompt = () => {
     const nextPrompt = prompt('Return to Menu or Quit? (M/Q) ')
     if(nextPrompt === 'M') {
         promptFunction();
-    } else {
+    } else if (nextPrompt === 'Q') {
         quitFunction();
+    } else {
+        console.log('Invalid input, returning to Menu...')
+        promptFunction(); 
     };
+};
+
+const customerList = async () => {
+    const allCustomers = await customer.find({});
+    console.log('All Customers:', allCustomers);
 };
 
 const createCustomer = async () => {
@@ -80,7 +88,7 @@ const viewCustomers = async () => {
 const updateCustomer = async () => {
     const allCustomers = await customer.find({});
     console.log('All Customers:', allCustomers);
-    const customerToUpdate = prompt('Copy and Paste the ID of the Customer you wish to update: ')
+    const customerToUpdate = prompt('Copy and Paste the ID of the Customer you wish to update: ');
     const updatingCustomer = await customer.findById(customerToUpdate);
     console.log('Customer to Update:', updatingCustomer);
     const customerName = prompt('Updated Name: ');
@@ -90,6 +98,26 @@ const updateCustomer = async () => {
     nextPrompt();
 };
 
+const deleteCustomer = async () => {
+    const allCustomers = await customer.find({});
+    console.log('All Customers:', allCustomers);
+    const customerToDelete = prompt('Copy and Paste the ID of the Customer you wish to delete: ');
+    const deletingCustomer = await customer.findById(customerToDelete);
+    console.log('Customer to Delete:', deletingCustomer);
+    const confirmation = prompt('Are you sure you wish to delete this customer? (Y/N) ');
+    if(confirmation === 'N') {
+        console.log('Returning to Menu...');
+        promptFunction();
+    } else if(confirmation === 'Y') {
+        console.log('Deleting...');
+        await customer.findByIdAndDelete(customerToDelete);
+        console.log('Customer successfully deleted.');
+        nextPrompt();
+    } else {
+        console.log('Invalid input, returning to Menu...')
+        promptFunction();
+    };
+};
 
 const quitFunction = () => {
     console.log('Quitting...');
@@ -97,19 +125,3 @@ const quitFunction = () => {
 };
 
 Init();
-
-// const mongoose = require("mongoose")
-// require("dotenv").config()
-// const prompt = require("prompt-sync")()
-
-// const username = prompt("What is your name? ")
-
-// console.log(`Your name is ${username}`)
-
-// const main = async () => {
-//   await mongoose.connect(process.env.DATABASE_URL)
-//   console.log(`Connected to MongoDB ${mongoose.connection.name}.`)
-//   console.log("Welcome to the CRM")
-// }
-
-// main()
